@@ -34,9 +34,12 @@ html, body{
     color:  $primary-color;
     width: 100%;
     height: 100%;
-    border-top: 4px solid $accent-color;
-    // border-left: 4px solid $accent-color;
-    box-sizing: border-box;
+}
+
+html{
+  border-top: 4px solid $accent-color;
+  // border-left: 4px solid $accent-color;
+  box-sizing: border-box;
 }
 
 .boxShadow{
@@ -58,13 +61,15 @@ html, body{
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-#homePage{
-  background-color:  $primary-color;
-  border: 50px solid darken(#2C3E50, 3%);
-  border-top: 0px solid $primary-color-dark;
-  box-sizing: border-box;
-  
-  .container{
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
     
     nav{
       background-color: $primary-color-dark;
@@ -108,6 +113,14 @@ html, body{
       }
       
     }
+    
+#homePage{
+  background-color:  $primary-color;
+  border: 50px solid darken(#2C3E50, 3%);
+  border-top: 0px solid $primary-color-dark;
+  box-sizing: border-box;
+  
+  .container{
     
     #contentContainer{
       // max-width: 800px;
@@ -160,7 +173,68 @@ html, body{
   }
 }
 
+#portfolioPage{
 
+  nav{
+    padding: 15px 50px 12px;
+  }
+  
+  header{
+    width: 100%;
+    padding: 50px 0;
+    background-color: $primary-color;
+    text-transform: capitalize;
+    @extend .boxShadow;
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    
+    .title{
+      display: inline-block;
+      border-right: 2px solid $primary-color-dark;
+      padding-right: 20px;
+      margin-right: 20px;
+      font-size: 50px;
+      color: $text-light;
+    }
+    
+    .desc{
+      color: $text-dark;
+      display: inline-block;
+      font-size: 22px;
+      vertical-align: middle;
+      height: inherit;
+      // text-transform: lowercase;
+      @include vertical-align;
+    }
+    
+  }
+  
+  #contentContainer{
+    z-index: 0;
+    position: relative;
+    width: 100%;
+    height: 1000px;
+    background-color: $primary-color-dark;
+    margin: 0 auto;
+    padding: 100px 0;
+    
+    .singlePortfolio{
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .singlePortfolioImg{
+      width: 600px;
+      // height: 250px;
+      @extend .boxShadow1;
+      border: 10px solid lighten(#2a2a2a, 5%);
+      border-radius: 2px;
+    }
+    
+  }
+  
+}
 
 
 
