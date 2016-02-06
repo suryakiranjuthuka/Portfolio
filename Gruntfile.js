@@ -8,6 +8,8 @@
 // If you want to recursively match all subfolders, use:
 // 'test/spec/**/*.js'
 
+
+
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
@@ -17,12 +19,17 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin'
   });
+  
+  //load Grunt Build Control
+  grunt.loadNpmTasks('grunt-build-control');
 
   // Configurable paths
   var config = {
     app: 'app',
     dist: 'dist'
   };
+  
+  var pkg = require('./package.json');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -338,11 +345,20 @@ module.exports = function (grunt) {
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*'
           ]
-        }, {
+        },{
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>',
+          dest: '<%= config.dist %>',
+          src: 'images/*'
+        },{
           expand: true,
           dot: true,
           cwd: '.',
-          src: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*',
+          src: [
+            '.gitignore',
+            'CNAME'
+          ],
           dest: '<%= config.dist %>'
         }]
       }
@@ -379,7 +395,24 @@ module.exports = function (grunt) {
         'sass',
         'svgmin'
       ]
+    },
+    
+    //GRUNT BUILD CONTROL
+    buildcontrol: {
+      options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      local: {
+        options: {
+          remote: '../',
+          branch: 'master'
+        }
+      }
     }
+    
   });
 
 
